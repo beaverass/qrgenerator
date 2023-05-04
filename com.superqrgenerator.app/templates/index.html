@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QR-generator</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/style.css') }}">
+</head>
+<body>
+
+<h1>Welcome to my QR-code generator app!</h1>
+<h2>Here you can create any QR-code you want!</h2>
+
+<div class="overlay" id="overlay">
+    <div class="container">
+        <h2>Enter your link:</h2>
+        <form method="POST">
+            <div class="form-group">
+                <input type="text" name="link" id="username">
+            </div>
+            <button type="submit">Generate</button>
+        </form>
+        <form>
+            <button id="closeButton" onclick="closePopup()">Close and clean</button>
+        </form>
+    </div>
+
+</div>
+
+<button onclick="showPopup()">Generate QR-code</button>
+
+{% if qr_image %}
+<div style="margin-top: 10px">
+    <h3>Here is your QR-code for link "{{ linkk }}" </h3>
+    <div>
+        <img src="data:image/png;base64,{{ qr_image }}" alt="QR-code">
+    </div>
+</div>
+{% endif %}
+
+<script>
+    function showPopup() {
+        var overlay = document.getElementById("overlay");
+        overlay.classList.add("active");
+    }
+
+    function closePopup() {
+        const popup = document.getElementById("overlay");
+        var closeButton = document.getElementById("closeButton");
+
+        closeButton.addEventListener("click", () => {
+            popup.style.display = "none";
+        });
+
+        // window.addEventListener("click", (event) => {
+        //     if (event.target === popup) {
+        //         popup.style.display = "none";
+        //     }
+        // });
+
+    }
+
+
+
+
+</script>
+</body>
+</html>
